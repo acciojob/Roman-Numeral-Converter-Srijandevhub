@@ -10,7 +10,45 @@ function convertToRoman(num) {
     };
 
   //your code here
-
+let numbers=[]
+	let ten=1
+	while(num>0){
+		rem=num%10
+		num=Math.floor(num/10)
+		numbers.push(ten*rem)
+		ten*=10
+	}
+	numbers.reverse()
+	let objidx=0
+	let roman=""
+	for(i=0;i<numbers.length;i++){ 
+		number=numbers[i]           
+		while(number<obj[objidx][1]){  
+			objidx++
+		}
+		firstdig=number/Math.pow(10,numbers.length-i-1)
+		if(firstdig==4 && number<1000){
+		    roman+=obj[objidx][0]
+		    roman+=obj[objidx-1][0]
+		}
+		else if(firstdig==9 && number<1000){
+			roman+=obj[objidx+1][0]
+		    roman+=obj[objidx-1][0]
+			
+		}
+		else{
+			while(obj[objidx][1]<=number){
+			    roman+=obj[objidx][0]
+			    number-=obj[objidx][1]
+			}
+			while(objidx+1<7 && obj[objidx+1][1]<=number){
+			    roman+=obj[objidx+1][0]
+			    number-=obj[objidx+1][1]
+			}
+		}
+		console.log(firstdig)
+	}
+	return roman
 }
 // You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
 
